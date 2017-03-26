@@ -1,18 +1,25 @@
 <?php
+/**
+ * This file is part of the ramsey/pygments library
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) Kazuyuki Hayashi <hayashi@valnur.net>
+ * @copyright Copyright (c) Ben Ramsey <ben@benramsey.com>
+ * @license http://opensource.org/licenses/MIT MIT
+ */
 
-namespace KzykHys\Pygments;
+namespace Ramsey\Pygments;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Pygments.php - A Thin Wrapper for the Python Pygments
- *
- * @author Kazuyuki Hayashi <hayashi@valnur.net>
+ * A PHP wrapper for Pygments, the Python syntax highlighter
  */
 class Pygments
 {
-
     /**
      * @var string
      */
@@ -38,7 +45,7 @@ class Pygments
      *
      * @return string
      */
-    public function highlight($code, $lexer = null, $formatter = null, $options = array())
+    public function highlight($code, $lexer = null, $formatter = null, $options = [])
     {
         $builder = $this->createProcessBuilder();
 
@@ -53,16 +60,12 @@ class Pygments
         }
 
         if (count($options)) {
-            $arg = array();
-
             foreach ($options as $key => $value) {
-                $arg[] = sprintf('%s=%s', $key, $value);
+                $builder->add('-P')->add(sprintf('%s=%s', $key, $value));
             }
-
-            $builder->add('-O')->add(implode(',', $arg));
         }
 
-        $process = $builder->getProcess()->setStdin($code);
+        $process = $builder->setInput($code)->getProcess();
 
         return $this->getOutput($process);
     }
@@ -98,7 +101,7 @@ class Pygments
     public function guessLexer($fileName)
     {
         $process = $this->createProcessBuilder()
-            ->setArguments(array('-N', $fileName))
+            ->setArguments(['-N', $fileName])
             ->getProcess();
 
         return trim($this->getOutput($process));
@@ -112,7 +115,7 @@ class Pygments
     public function getLexers()
     {
         $process = $this->createProcessBuilder()
-            ->setArguments(array('-L', 'lexer'))
+            ->setArguments(['-L', 'lexer'])
             ->getProcess();
 
         $output = $this->getOutput($process);
@@ -128,7 +131,7 @@ class Pygments
     public function getFormatters()
     {
         $process = $this->createProcessBuilder()
-            ->setArguments(array('-L', 'formatter'))
+            ->setArguments(['-L', 'formatter'])
             ->getProcess();
 
         $output = $this->getOutput($process);
@@ -144,7 +147,7 @@ class Pygments
     public function getStyles()
     {
         $process = $this->createProcessBuilder()
-            ->setArguments(array('-L', 'style'))
+            ->setArguments(['-L', 'style'])
             ->getProcess();
 
         $output = $this->getOutput($process);
@@ -182,7 +185,7 @@ class Pygments
      */
     protected function parseList($input)
     {
-        $list = array();
+        $list = [];
 
         if (preg_match_all('/^\* (.*?):\r?\n *([^\r\n]*?)$/m', $input, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
@@ -196,5 +199,4 @@ class Pygments
 
         return $list;
     }
-
-} 
+}
