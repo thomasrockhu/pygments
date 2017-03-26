@@ -7,15 +7,20 @@
         {
             "name": "Kazuyuki Hayashi",
             "email": "hayashi@valnur.net"
+        },
+        {
+            "name": "Ben Ramsey",
+            "email": "ben@benramsey.com",
+            "homepage": "https://benramsey.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "php": "^5.6 || ^7.0",
         "symfony/process": "^3.0"
     },
     "require-dev": {
         "jakub-onderka/php-parallel-lint": "^0.9.2",
+        "mockery/mockery": "^0.9.9",
         "phpunit/phpunit": "^5.7 || ^6.0",
         "squizlabs/php_codesniffer": "^2.8",
         "symfony/finder": "^3.0"
@@ -31,9 +36,10 @@
         }
     },
     "scripts": {
+        "coverage": "phpunit --verbose --colors=always --coverage-html=build/coverage",
         "lint": "parallel-lint src tests",
-        "phpunit": "phpunit --verbose --colors=always",
         "phpcs": "phpcs src tests --standard=psr2 -sp --colors",
+        "phpunit": "phpunit --verbose --colors=always",
         "test": [
             "@lint",
             "@phpunit",

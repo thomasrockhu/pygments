@@ -4,22 +4,28 @@ namespace Ramsey\Pygments\Test;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Pygments\Pygments;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\Process;
 
-/**
- * @author Kazuyuki Hayashi <hayashi@valnur.net>
- */
 class PygmentsTest extends TestCase
 {
+    /**
+     * @var Pygments
+     */
+    protected $pygments;
+
+    protected function setUp()
+    {
+        $this->pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
+    }
+
     /**
      * @dataProvider provideSamples
      */
     public function testHighlight($input, $expected, $expectedL, $expectedG, $lexer)
     {
-        $pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
-
-        $this->assertEquals($expectedG, $pygments->highlight($input, null, 'html'));
-        $this->assertEquals($expected, $pygments->highlight($input, $lexer, 'html'));
-        $this->assertEquals($expectedL, $pygments->highlight($input, null, 'html', ['linenos' => 1]));
+        $this->assertEquals($expectedG, $this->pygments->highlight($input, null, 'html'));
+        $this->assertEquals($expected, $this->pygments->highlight($input, $lexer, 'html'));
+        $this->assertEquals($expectedL, $this->pygments->highlight($input, null, 'html', ['linenos' => 1]));
     }
 
     /**
@@ -27,42 +33,52 @@ class PygmentsTest extends TestCase
      */
     public function testGetCss($expected, $expectedA, $style)
     {
-        $pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
-
-        $this->assertEquals($expected, $pygments->getCss($style));
-        $this->assertEquals($expectedA, $pygments->getCss($style, '.syntax'));
+        $this->assertEquals($expected, $this->pygments->getCss($style));
+        $this->assertEquals($expectedA, $this->pygments->getCss($style, '.syntax'));
     }
 
     public function testGetLexers()
     {
-        $pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
-        $lexers = $pygments->getLexers();
+        $lexers = $this->pygments->getLexers();
 
         $this->assertArrayHasKey('python', $lexers);
     }
 
     public function testGetFormatters()
     {
-        $pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
-        $formatters = $pygments->getFormatters();
+        $formatters = $this->pygments->getFormatters();
 
         $this->assertArrayHasKey('html', $formatters);
     }
 
     public function testGetStyles()
     {
-        $pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
-        $styles = $pygments->getStyles();
+        $styles = $this->pygments->getStyles();
 
         $this->assertArrayHasKey('monokai', $styles);
     }
 
+    public function testGetOutputThrowsExceptionWhenProcessNotSuccessful()
+    {
+        $process = \Mockery::mock(Process::class);
+        $process->shouldReceive('stop');
+        $process->shouldReceive('run')->once();
+        $process->shouldReceive('isSuccessful')->once()->andReturn(false);
+        $process->shouldReceive('getErrorOutput')->once()->andReturn('foobar');
+
+        $getOutput = new \ReflectionMethod(Pygments::class, 'getOutput');
+        $getOutput->setAccessible(true);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('foobar');
+
+        $getOutput->invoke($this->pygments, $process);
+    }
+
     public function testGuessLexer()
     {
-        $pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
-
-        $this->assertEquals('php', $pygments->guessLexer('index.php'));
-        $this->assertEquals('go', $pygments->guessLexer('main.go'));
+        $this->assertEquals('php', $this->pygments->guessLexer('index.php'));
+        $this->assertEquals('go', $this->pygments->guessLexer('main.go'));
     }
 
     public function provideSamples()
