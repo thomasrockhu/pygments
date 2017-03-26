@@ -31,7 +31,7 @@ Python and Pygments versions supported:
 
 ## Installation
 
-Use [Composer][] to require this package:
+The preferred method of installation is via [Packagist][] and [Composer][]. Run the following command to install the package and add it as a requirement to your project's `composer.json`:
 
 ```
 composer require ramsey/pygments
