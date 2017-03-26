@@ -1,9 +1,8 @@
 <?php
+namespace Ramsey\Pygments\Test;
 
-namespace KzykHys\Pygments\Test;
-
-use KzykHys\Pygments\Pygments;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Pygments\Pygments;
 use Symfony\Component\Finder\Finder;
 
 /**

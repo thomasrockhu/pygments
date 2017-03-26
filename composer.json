@@ -1,6 +1,6 @@
 {
-    "name": "kzykhys/pygments",
-    "description": "A Thin Wrapper for the Python Pygments",
+    "name": "ramsey/pygments",
+    "description": "A wrapper for the Python Pygments",
     "keywords": ["pygments", "syntax", "highlight"],
     "license": "MIT",
     "authors": [
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "KzykHys\\Pygments\\": "src"
+            "Ramsey\\Pygments\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "KzykHys\\Pygments\\Test\\": "tests"
+            "Ramsey\\Pygments\\Test\\": "tests"
         }
     },
     "scripts": {

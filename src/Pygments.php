@@ -1,14 +1,22 @@
 <?php
+/**
+ * This file is part of the ramsey/pygments library
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) Kazuyuki Hayashi <hayashi@valnur.net>
+ * @copyright Copyright (c) Ben Ramsey <ben@benramsey.com>
+ * @license http://opensource.org/licenses/MIT MIT
+ */
 
-namespace KzykHys\Pygments;
+namespace Ramsey\Pygments;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
- * Pygments.php - A Thin Wrapper for the Python Pygments
- *
- * @author Kazuyuki Hayashi <hayashi@valnur.net>
+ * A PHP wrapper for Pygments, the Python syntax highlighter
  */
 class Pygments
 {
