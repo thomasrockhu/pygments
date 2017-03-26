@@ -85,7 +85,7 @@ class PygmentsTest extends TestCase
     {
         $finder = new Finder();
         $finder
-            ->in(__DIR__ . '/Resources/pygments-' . getenv('PYGMENTIZE_VERSION') . '/example')
+            ->in(__DIR__ . '/fixtures/pygments-' . getenv('PYGMENTIZE_VERSION') . '/example')
             ->name("*.in")
             ->files()
             ->ignoreVCS(true);
@@ -110,7 +110,7 @@ class PygmentsTest extends TestCase
     {
         $finder = new Finder();
         $finder
-            ->in(__DIR__ . '/Resources/pygments-' . getenv('PYGMENTIZE_VERSION') . '/css')
+            ->in(__DIR__ . '/fixtures/pygments-' . getenv('PYGMENTIZE_VERSION') . '/css')
             ->files()
             ->ignoreVCS(true)
             ->name('*.css')
