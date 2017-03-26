@@ -1,6 +1,6 @@
 {
     "name": "ramsey/pygments",
-    "description": "A wrapper for the Python Pygments",
+    "description": "A PHP wrapper for Pygments, the Python syntax highlighter, forked from kzykhys/pygments.",
     "keywords": ["pygments", "syntax", "highlight"],
     "license": "MIT",
     "authors": [
