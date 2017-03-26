@@ -89,7 +89,7 @@ $pygments = new Pygments('/path/to/pygmentize');
 
 ## Copyright and license
 
-Copyright for portions of ramsey/pygments are held by [Kazuyuki Hayashi][kzykhys] as part of [Pygments.php][kzykhys-pygments]. All other copyright for ramsey/pygments are held by [Ben Ramsey][ramsey]. Please see [LICENSE][] for more information.
+Copyrights for portions of ramsey/pygments are held by [Kazuyuki Hayashi][kzykhys] as part of [Pygments.php][kzykhys-pygments]. All other copyrights for ramsey/pygments are held by [Ben Ramsey][ramsey]. Please see [LICENSE][] for more information.
 
 
 [badge-build]: https://img.shields.io/travis/ramsey/pygments/master.svg?style=flat-square
