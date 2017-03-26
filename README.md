@@ -99,7 +99,7 @@ Copyrights for portions of ramsey/pygments are held by [Kazuyuki Hayashi][kzykhy
 [badge-release]: https://img.shields.io/packagist/v/ramsey/pygments.svg?style=flat-square
 [badge-source]: https://img.shields.io/badge/source-ramsey/pygments-blue.svg?style=flat-square
 [composer]: https://getcomposer.org
-[conduct]: https://github.com/ramsey/uuid/pygments/master/CODE_OF_CONDUCT.md
+[conduct]: https://github.com/ramsey/pygments/blob/master/CODE_OF_CONDUCT.md
 [coveralls]: https://coveralls.io/r/ramsey/pygments?branch=master
 [github]: https://github.com/ramsey/pygments
 [kzykhys-pygments]: https://github.com/kzykhys/Pygments.php
