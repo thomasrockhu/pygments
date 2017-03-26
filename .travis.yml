@@ -52,7 +52,7 @@ addons:
       - libmcrypt-dev
 
 before_install:
-  - ./util/install-php.sh
+  - ./tools/install-php.sh
   - eval "$(phpenv init -)" && phpenv rehash
   - php --version
   - php composer.phar --version
