@@ -1,5 +1,9 @@
-Pygments.php - A Thin Wrapper for the Python Pygments
-Copyright (c) 2013-2017 Kazuyuki Hayashi <hayashi@valnur.net>
+Copyright for portions of ramsey/pygments are held by Kazuyuki Hayashi as part
+of Pygments.php. All other copyright for ramsey/pygments are held by Ben Ramsey.
+
+Copyright (c) 2013 Kazuyuki Hayashi <hayashi@valnur.net>
+
+Copyright (c) 2017 Ben Ramsey <ben@benramsey.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
