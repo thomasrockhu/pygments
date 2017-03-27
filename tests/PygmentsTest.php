@@ -58,6 +58,10 @@ class PygmentsTest extends TestCase
         $this->assertArrayHasKey('monokai', $styles);
     }
 
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage foobar
+     */
     public function testGetOutputThrowsExceptionWhenProcessNotSuccessful()
     {
         $process = \Mockery::mock(Process::class);
@@ -68,9 +72,6 @@ class PygmentsTest extends TestCase
 
         $getOutput = new \ReflectionMethod(Pygments::class, 'getOutput');
         $getOutput->setAccessible(true);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('foobar');
 
         $getOutput->invoke($this->pygments, $process);
     }
