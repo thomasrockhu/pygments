@@ -1,5 +1,11 @@
 # ramsey/pygments Changelog
 
+## 1.0.1
+
+_Released: 2017-03-27_
+
+* Allow use of library on PHP >=5.5.9 (fixes [#2](https://github.com/ramsey/pygments/issues/2))
+
 ## 1.0.0
 
 _Released: 2017-03-25_
