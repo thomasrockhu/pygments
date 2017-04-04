@@ -13,7 +13,7 @@ This project adheres to a [Contributor Code of Conduct][conduct]. By participati
 
 ## Requirements
 
-* PHP 5.6+
+* PHP 5.5.9 or greater (including PHP 7)
 * Python
 * Pygments (`pip install Pygments`)
 
