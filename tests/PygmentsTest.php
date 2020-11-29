@@ -13,7 +13,7 @@ class PygmentsTest extends TestCase
      */
     protected $pygments;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->pygments = new Pygments(getenv('PYGMENTIZE_PATH'));
     }
@@ -58,10 +58,6 @@ class PygmentsTest extends TestCase
         $this->assertArrayHasKey('monokai', $styles);
     }
 
-    /**
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage foobar
-     */
     public function testGetOutputThrowsExceptionWhenProcessNotSuccessful()
     {
         $process = \Mockery::mock(Process::class);
@@ -72,6 +68,9 @@ class PygmentsTest extends TestCase
 
         $getOutput = new \ReflectionMethod(Pygments::class, 'getOutput');
         $getOutput->setAccessible(true);
+
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('foobar');
 
         $getOutput->invoke($this->pygments, $process);
     }
