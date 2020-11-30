@@ -14,14 +14,6 @@ env:
   global:
     - PATH="$HOME/.phpenv/bin:$HOME/.phpenv/shims:$PATH"
   matrix:
-    - PHP_VERSION=7.1 PYGMENTS_VERSION=1.6
-    - PHP_VERSION=7.1 PYGMENTS_VERSION=2.0
-    - PHP_VERSION=7.1 PYGMENTS_VERSION=2.1
-    - PHP_VERSION=7.1 PYGMENTS_VERSION=2.2
-    - PHP_VERSION=7.2 PYGMENTS_VERSION=1.6
-    - PHP_VERSION=7.2 PYGMENTS_VERSION=2.0
-    - PHP_VERSION=7.2 PYGMENTS_VERSION=2.1
-    - PHP_VERSION=7.2 PYGMENTS_VERSION=2.2
     - PHP_VERSION=7.3 PYGMENTS_VERSION=1.6
     - PHP_VERSION=7.3 PYGMENTS_VERSION=2.0
     - PHP_VERSION=7.3 PYGMENTS_VERSION=2.1
@@ -39,20 +31,12 @@ matrix:
   fast_finish: true
   include:
     - python: 3.2
-      env: PHP_VERSION=7.1 PYGMENTS_VERSION=1.6
-    - python: 3.2
-      env: PHP_VERSION=7.2 PYGMENTS_VERSION=1.6
-    - python: 3.2
       env: PHP_VERSION=7.3 PYGMENTS_VERSION=1.6
     - python: 3.2
       env: PHP_VERSION=7.4 PYGMENTS_VERSION=1.6
     - python: 3.2
       env: PHP_VERSION=8.0 PYGMENTS_VERSION=1.6
   allow_failures:
-    - python: 2.6
-      env: PHP_VERSION=7.1 PYGMENTS_VERSION=2.2
-    - python: 2.6
-      env: PHP_VERSION=7.2 PYGMENTS_VERSION=2.2
     - python: 2.6
       env: PHP_VERSION=7.3 PYGMENTS_VERSION=2.2
     - python: 2.6
