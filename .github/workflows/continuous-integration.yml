@@ -1,0 +1,71 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "CI"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+
+jobs:
+
+  coding-standards:
+    name: "Coding Standards"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "7.4"
+          coverage: "none"
+          ini-values: "memory_limit=-1"
+      - uses: "ramsey/composer-install@v1"
+      - name: "Run the linter"
+        run: "./vendor/bin/parallel-lint src tests"
+      - name: "Check coding standards"
+        run: "./vendor/bin/phpcs src tests --standard=psr2 -sp --colors"
+
+  unit-tests:
+    name: "Unit Tests"
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        php-version:
+          - "5.5.9"
+          - "5.6"
+          - "7.0"
+          - "7.1"
+        python-version:
+          - "2.7"
+          - "3.3"
+          - "3.4"
+          - "3.5"
+          - "3.6"
+          - "3.7"
+          - "3.8"
+          - "3.9"
+        pygments-version:
+          - "1.6"
+          - "2.0"
+          - "2.1"
+          - "2.2"
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "${{ matrix.python-version }}"
+      - uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: "pcov"
+          ini-values: "memory_limit=-1"
+      - uses: "ramsey/composer-install@v1"
+      - name: "Create log directory"
+        run: "mkdir -p build/logs"
+      - name: "Install Python Pygments"
+        run: "pip install Pygments==${{ matrix.pygments-version }}"
+      - name: "Run unit tests"
+        run: "./vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml --coverage-text"
+      - name: "Publish coverage report to Codecov"
+        uses: "codecov/codecov-action@v1"
