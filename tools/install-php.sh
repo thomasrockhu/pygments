@@ -8,7 +8,7 @@ if [ -z "$TRAVIS" ]; then
     exit 1
 fi
 
-archive_url="https://s3.amazonaws.com/travis-php-archives/binaries/ubuntu/12.04/x86_64/php-${PHP_VERSION}.tar.bz2"
+archive_url="https://storage.googleapis.com/travis-ci-language-archives/php/binaries/ubuntu/16.04/x86_64/php-${PHP_VERSION}.tar.bz2"
 
 # Install phpenv
 type phpenv >/dev/null 2>&1
