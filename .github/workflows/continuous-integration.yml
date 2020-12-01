@@ -27,12 +27,12 @@ jobs:
         run: "./vendor/bin/phpcs src tests --standard=psr2 -sp --colors"
 
   unit-tests:
-    name: "Unit Tests"
+    name: "Test run for PHP ${{ matrix.php-version }} with Pygments ${{ matrix.pygments-version }} on Python ${{ matrix.python-version }}"
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
         php-version:
-          - "5.5.9"
+          - "5.5"
           - "5.6"
           - "7.0"
           - "7.1"
@@ -58,7 +58,7 @@ jobs:
       - uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
-          coverage: "pcov"
+          coverage: "xdebug"
           ini-values: "memory_limit=-1"
       - uses: "ramsey/composer-install@v1"
       - name: "Create log directory"

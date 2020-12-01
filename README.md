@@ -92,15 +92,15 @@ $pygments = new Pygments('/path/to/pygmentize');
 Copyrights for portions of ramsey/pygments are held by [Kazuyuki Hayashi][kzykhys] as part of [Pygments.php][kzykhys-pygments]. All other copyrights for ramsey/pygments are held by [Ben Ramsey][ramsey]. Please see [LICENSE][] for more information.
 
 
-[badge-build]: https://img.shields.io/travis/ramsey/pygments/master.svg?style=flat-square
-[badge-coverage]: https://img.shields.io/coveralls/ramsey/pygments/master.svg?style=flat-square
+[badge-build]: https://img.shields.io/github/workflow/status/ramsey/pygments/CI?label=CI&logo=github&style=flat-square
+[badge-coverage]: https://img.shields.io/codecov/c/gh/ramsey/pygments?label=codecov&logo=codecov&style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/ramsey/pygments.svg?style=flat-square
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [badge-release]: https://img.shields.io/packagist/v/ramsey/pygments.svg?style=flat-square
 [badge-source]: https://img.shields.io/badge/source-ramsey/pygments-blue.svg?style=flat-square
 [composer]: https://getcomposer.org
 [conduct]: https://github.com/ramsey/pygments/blob/master/CODE_OF_CONDUCT.md
-[coveralls]: https://coveralls.io/r/ramsey/pygments?branch=master
+[coveralls]: https://codecov.io/gh/ramsey/pygments
 [github]: https://github.com/ramsey/pygments
 [kzykhys-pygments]: https://github.com/kzykhys/Pygments.php
 [kzykhys]: https://github.com/kzykhys
@@ -108,4 +108,4 @@ Copyrights for portions of ramsey/pygments are held by [Kazuyuki Hayashi][kzykhy
 [packagist]: https://packagist.org/packages/ramsey/pygments
 [pygments]: http://pygments.org/
 [ramsey]: https://benramsey.com
-[travisci]: https://travis-ci.org/ramsey/pygments
+[travisci]: https://github.com/ramsey/pygments/actions?query=workflow%3ACI
