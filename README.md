@@ -13,21 +13,18 @@ This project adheres to a [Contributor Code of Conduct][conduct]. By participati
 
 ## Requirements
 
-* PHP 5.5.9 or greater (including PHP 7)
+* PHP 7.3 or greater (including PHP 8)
 * Python
 * Pygments (`pip install Pygments`)
 
 Python and Pygments versions supported:
 
-| Pygments:  | 1.6 | 2.0 | 2.1 | 2.2 |
-| :--------- | :-: | :-: | :-: | :-: |
-| Python 2.6 | ✔   | ✔   | ✔   | -   |
-| Python 2.7 | ✔   | ✔   | ✔   | ✔   |
-| Python 3.2 | ✔   | -   | -   | -   |
-| Python 3.3 | ✔   | ✔   | ✔   | ✔   |
-| Python 3.4 | ✔   | ✔   | ✔   | ✔   |
-| Python 3.5 | ✔   | ✔   | ✔   | ✔   |
-| Python 3.6 | ✔   | ✔   | ✔   | ✔   |
+| Pygments:  | 1.6 | 2.0 | 2.1 | 2.2 | 2.3 | 2.4 | 2.5 | 2.6 | 2.7 |
+| :--------- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| Python 3.6 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Python 3.7 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Python 3.8 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
+| Python 3.9 | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   | ✔   |
 
 ## Installation
 
