@@ -13,7 +13,6 @@
 namespace Ramsey\Pygments;
 
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * A PHP wrapper for Pygments, the Python syntax highlighter
