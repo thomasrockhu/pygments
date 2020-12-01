@@ -145,7 +145,7 @@ class ProcessBuilder
             throw new \RuntimeException('Unable to determine type for first parameter of ' . Process::class);
         }
 
-        if ($param->getType() && $param->getType()->getName() === 'string') {
+        if ($param->getType() && $param->getType()->getName() !== 'array') {
             $commandLine = array_shift($command) . ' ';
             $commandLine .= implode(
                 ' ',
