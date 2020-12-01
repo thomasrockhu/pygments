@@ -33,6 +33,7 @@ jobs:
     name: "Test run for PHP ${{ matrix.php-version }} with Pygments ${{ matrix.pygments-version }} on Python ${{ matrix.python-version }} and ${{ matrix.composer-dependencies }} Composer dependencies"
     runs-on: "ubuntu-latest"
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "7.3"
