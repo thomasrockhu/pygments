@@ -145,21 +145,21 @@ class ProcessBuilder
             throw new \RuntimeException('Unable to determine type for first parameter of ' . Process::class);
         }
 
-        if ($param->getType() && $param->getType()->getName() !== 'array') {
-            $commandLine = array_shift($command) . ' ';
-            $commandLine .= implode(
-                ' ',
-                array_map(
-                    function ($v) {
-                        return escapeshellarg($v);
-                    },
-                    $command
-                )
-            );
-
-            $command = $commandLine;
+        if ($param->getType() && $param->getType()->getName() === 'array') {
+            return new Process($command, null, null, $this->input);
         }
 
-        return new Process($command, null, null, $this->input);
+        $commandLine = array_shift($command) . ' ';
+        $commandLine .= implode(
+            ' ',
+            array_map(
+                function ($v) {
+                    return escapeshellarg($v);
+                },
+                $command
+            )
+        );
+
+        return new Process($commandLine, null, null, $this->input);
     }
 }
