@@ -22,14 +22,29 @@ jobs:
         with:
           php-version: "8.0"
           coverage: "none"
+          ini-values: "memory_limit=-1"
       - uses: "ramsey/composer-install@v1"
-      - name: "Run the linter"
-        run: "./vendor/bin/parallel-lint src tests"
       - name: "Check coding standards"
-        run: "./vendor/bin/phpcs src tests --standard=psr2 -sp --colors"
+        run: "composer dev:lint"
+
+  static-analysis:
+    name: "Static Analysis"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.0"
+          coverage: "none"
+          ini-values: "memory_limit=-1"
+      - uses: "ramsey/composer-install@v1"
+      - name: "Run PHPStan"
+        run: "composer dev:analyze:phpstan"
+      - name: "Run Psalm"
+        run: "composer dev:analyze:psalm -- --shepherd"
 
   unit-tests:
-    name: "Test run for PHP ${{ matrix.php-version }} with Pygments ${{ matrix.pygments-version }} on Python ${{ matrix.python-version }} and ${{ matrix.composer-dependencies }} Composer dependencies"
+    name: "Unit tests for PHP ${{ matrix.php-version }} with Pygments ${{ matrix.pygments-version }} on Python ${{ matrix.python-version }} and ${{ matrix.composer-dependencies }} Composer dependencies"
     runs-on: "ubuntu-latest"
     strategy:
       fail-fast: false
@@ -70,11 +85,9 @@ jobs:
       - uses: "ramsey/composer-install@v1"
         with:
           dependency-versions: "${{ matrix.composer-dependencies }}"
-      - name: "Create log directory"
-        run: "mkdir -p build/logs"
       - name: "Install Python Pygments"
         run: "pip install Pygments==${{ matrix.pygments-version }}"
       - name: "Run unit tests"
-        run: "./vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml --coverage-text"
+        run: "composer dev:test:coverage:ci -- --coverage-text"
       - name: "Publish coverage report to Codecov"
         uses: "codecov/codecov-action@v1"

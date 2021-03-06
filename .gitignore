@@ -1,4 +1,4 @@
-/build/
+/captainhook.config.json
+/phpcs.xml
+/phpunit.xml
 /vendor/
-composer.phar
-.phpunit.result.cache

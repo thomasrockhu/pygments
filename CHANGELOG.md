@@ -1,19 +1,62 @@
 # ramsey/pygments Changelog
 
-## 1.0.1
+All notable changes to this project will be documented in this file.
 
-_Released: 2017-03-27_
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-* Allow use of library on PHP >=5.5.9 (fixes [#2](https://github.com/ramsey/pygments/issues/2))
+## 2.0.0 - 2021-03-06
 
-## 1.0.0
+### Added
 
-_Released: 2017-03-25_
+- Nothing.
 
-* Project forked from [Pygments.php](https://github.com/kzykhys/Pygments.php)
-* Package name changed to ramsey/pygments
-* Namespace changed to Ramsey
-* Library updated to require PHP 5.6+
-* Library updated to require symfony/process 3.0+
-* Tests updated to ensure library works with various versions of Pygments and Python
-* Re-released as 1.0.0 due to new package and namespace names
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 1.0.1 - 2017-03-27
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Allow use of library on PHP >=5.5.9 (fixes [#2](https://github.com/ramsey/pygments/issues/2))
+
+## 1.0.0 - 2017-03-25
+
+### Initial release
+
+- Project forked from [Pygments.php](https://github.com/kzykhys/Pygments.php)
+- Package name changed to ramsey/pygments
+- Namespace changed to Ramsey
+- Library updated to require PHP 5.6+
+- Library updated to require symfony/process 3.0+
+- Tests updated to ensure library works with various versions of Pygments and Python
+- Re-released as 1.0.0 due to new package and namespace names
