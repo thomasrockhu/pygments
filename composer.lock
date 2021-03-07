@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da515685e6707189ab63075c57bea534",
+    "content-hash": "998af52af0c3bf21cddcfd514e30aac9",
     "packages": [
         {
             "name": "symfony/process",
@@ -2913,75 +2913,6 @@
             "time": "2020-03-23T09:12:05+00:00"
         },
         {
-            "name": "ramsey/coding-standard",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ramsey/coding-standard.git",
-                "reference": "ac4b971c5dfe06cc93edc690e108a6f336b4e477"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/coding-standard/zipball/ac4b971c5dfe06cc93edc690e108a6f336b4e477",
-                "reference": "ac4b971c5dfe06cc93edc690e108a6f336b4e477",
-                "shasum": ""
-            },
-            "require": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-                "php": "^7.4 || ^8",
-                "phpcsstandards/phpcsextra": "^1.0.0-alpha3",
-                "phpcsstandards/phpcsutils": "^1.0.0-alpha3",
-                "slevomat/coding-standard": "^6.3",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "require-dev": {
-                "captainhook/captainhook": "^5.3",
-                "ergebnis/composer-normalize": "^2.6",
-                "ext-dom": "*",
-                "ramsey/conventional-commits": "^1.1",
-                "sebastian/diff": "^4.0"
-            },
-            "bin": [
-                "bin/xmllint",
-                "bin/xmllint-fix"
-            ],
-            "type": "phpcodesniffer-standard",
-            "extra": {
-                "ramsey/conventional-commits": {
-                    "configFile": "conventional-commits.json"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ben Ramsey",
-                    "email": "ben@benramsey.com",
-                    "homepage": "https://benramsey.com"
-                }
-            ],
-            "description": "A common coding standard for Ramsey's PHP libraries.",
-            "keywords": [
-                "development",
-                "phpcs",
-                "standards",
-                "tools"
-            ],
-            "support": {
-                "issues": "https://github.com/ramsey/coding-standard/issues",
-                "source": "https://github.com/ramsey/coding-standard/tree/1.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ramsey",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-11-14T23:16:21+00:00"
-        },
-        {
             "name": "sebastian/cli-parser",
             "version": "1.0.1",
             "source": {
@@ -5301,7 +5232,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "phpcsstandards/phpcsextra": 15
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
