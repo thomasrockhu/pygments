@@ -8,6 +8,9 @@
     <file>./src</file>
     <file>./tests</file>
 
-    <rule ref="Ramsey"/>
+    <rule ref="Ramsey">
+        <exclude name="SlevomatCodingStandard.Functions.RequireArrowFunction"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint"/>
+    </rule>
 
 </ruleset>

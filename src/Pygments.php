@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the ramsey/pygments library
  *
@@ -10,18 +11,27 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
+declare(strict_types=1);
+
 namespace Ramsey\Pygments;
 
+use RuntimeException;
 use Symfony\Component\Process\Process;
+
+use function count;
+use function explode;
+use function preg_match_all;
+use function sprintf;
+use function trim;
+
+use const PREG_SET_ORDER;
 
 /**
  * A PHP wrapper for Pygments, the Python syntax highlighter
  */
 class Pygments
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $pygmentize;
 
     /**
@@ -29,7 +39,7 @@ class Pygments
      *
      * @param string $pygmentize The path to pygmentize command
      */
-    public function __construct($pygmentize = 'pygmentize')
+    public function __construct(string $pygmentize = 'pygmentize')
     {
         $this->pygmentize = $pygmentize;
     }
@@ -37,15 +47,19 @@ class Pygments
     /**
      * Highlight the input code
      *
-     * @param string $code      The code to highlight
-     * @param string $lexer     The name of the lexer (php, html,...)
-     * @param string $formatter The name of the formatter (html, ansi,...)
-     * @param array  $options   An array of options
+     * @param string $code The code to highlight
+     * @param string|null $lexer The name of the lexer (php, html, ...)
+     * @param string|null $formatter The name of the formatter (html, ansi, ...)
+     * @param array<string, string|int> $options An array of options
      *
-     * @return string
+     * @return string The code with syntax highlighting applied, in the specified format
      */
-    public function highlight($code, $lexer = null, $formatter = null, $options = [])
-    {
+    public function highlight(
+        string $code,
+        ?string $lexer = null,
+        ?string $formatter = null,
+        array $options = []
+    ): string {
         $builder = $this->createProcessBuilder();
 
         if ($lexer) {
@@ -72,12 +86,12 @@ class Pygments
     /**
      * Gets style definition
      *
-     * @param string $style    The name of the style (default, colorful,...)
-     * @param string $selector The css selector
+     * @param string $style The name of the style (default, colorful, ...)
+     * @param string|null $selector A CSS selector prefix to prepend to the CSS classes
      *
-     * @return string
+     * @return string The Pygments CSS definition for the specified style
      */
-    public function getCss($style = 'default', $selector = null)
+    public function getCss(string $style = 'default', ?string $selector = null): string
     {
         $builder = $this->createProcessBuilder();
         $builder->add('-f')->add('html');
@@ -93,11 +107,13 @@ class Pygments
     /**
      * Guesses a lexer name based solely on the given filename
      *
-     * @param string $fileName The file does not need to exist, or be readable.
+     * @param string $fileName The name of a file to guess the lexer for.
+     *     The file does not need to exist, or be readable; Pygments uses the
+     *     file extension to guess the lexer.
      *
-     * @return string
+     * @return string The name of the lexer guessed
      */
-    public function guessLexer($fileName)
+    public function guessLexer(string $fileName): string
     {
         $process = $this->createProcessBuilder()
             ->setArguments(['-N', $fileName])
@@ -109,9 +125,9 @@ class Pygments
     /**
      * Gets a list of lexers
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function getLexers()
+    public function getLexers(): array
     {
         $process = $this->createProcessBuilder()
             ->setArguments(['-L', 'lexer'])
@@ -125,9 +141,9 @@ class Pygments
     /**
      * Gets a list of formatters
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function getFormatters()
+    public function getFormatters(): array
     {
         $process = $this->createProcessBuilder()
             ->setArguments(['-L', 'formatter'])
@@ -141,9 +157,9 @@ class Pygments
     /**
      * Gets a list of styles
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function getStyles()
+    public function getStyles(): array
     {
         $process = $this->createProcessBuilder()
             ->setArguments(['-L', 'style'])
@@ -154,35 +170,26 @@ class Pygments
         return $this->parseList($output);
     }
 
-    /**
-     * @return ProcessBuilder
-     */
-    protected function createProcessBuilder()
+    protected function createProcessBuilder(): ProcessBuilder
     {
         return ProcessBuilder::create()->setPrefix($this->pygmentize);
     }
 
-    /**
-     * @param Process $process
-     * @throws \RuntimeException
-     * @return string
-     */
-    protected function getOutput(Process $process)
+    protected function getOutput(Process $process): string
     {
         $process->run();
 
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
+            throw new RuntimeException($process->getErrorOutput());
         }
 
         return $process->getOutput();
     }
 
     /**
-     * @param string $input
-     * @return array
+     * @return array<string, string>
      */
-    protected function parseList($input)
+    protected function parseList(string $input): array
     {
         $list = [];
 
@@ -191,7 +198,7 @@ class Pygments
                 $names = explode(',', $match[1]);
 
                 foreach ($names as $name) {
-                    $list[trim($name)] = $match[2];
+                    $list[trim($name)] = trim($match[2]);
                 }
             }
         }

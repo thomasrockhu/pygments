@@ -3,8 +3,8 @@
 /*
  * This file was originally part of the Symfony package.
  *
- * Copyright (c) 2004-2020 Fabien Potencier
- * Copyright (c) 2020 Ben Ramsey
+ * Copyright (c) Fabien Potencier
+ * Copyright (c) Ben Ramsey
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,18 +25,35 @@
  * THE SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Ramsey\Pygments;
 
+use IteratorIterator;
 use ReflectionClass;
-use Symfony\Component\Process\Exception\InvalidArgumentException;
+use ReflectionMethod;
+use ReflectionNamedType;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessUtils;
 
+use function array_map;
+use function array_merge;
+use function array_shift;
+use function count;
+use function escapeshellarg;
+use function implode;
+use function is_array;
+
 class ProcessBuilder
 {
+    /** @var string[] */
     private $arguments;
+
+    /** @var IteratorIterator|mixed|resource|string|null */
     private $input = null;
+
+    /** @var string[] */
     private $prefix = [];
 
     /**
@@ -51,22 +68,18 @@ class ProcessBuilder
      * Creates a process builder instance.
      *
      * @param string[] $arguments An array of arguments
-     *
-     * @return static
      */
-    public static function create(array $arguments = [])
+    public static function create(array $arguments = []): ProcessBuilder
     {
-        return new static($arguments);
+        return new ProcessBuilder($arguments);
     }
 
     /**
      * Adds an unescaped argument to the command string.
      *
      * @param string $argument A command argument
-     *
-     * @return $this
      */
-    public function add($argument)
+    public function add(string $argument): self
     {
         $this->arguments[] = $argument;
 
@@ -78,13 +91,11 @@ class ProcessBuilder
      *
      * The prefix is preserved when resetting arguments.
      *
-     * @param string|array $prefix A command prefix or an array of command prefixes
-     *
-     * @return $this
+     * @param string|string[] $prefix A command prefix or an array of command prefixes
      */
-    public function setPrefix($prefix)
+    public function setPrefix($prefix): self
     {
-        $this->prefix = \is_array($prefix) ? $prefix : [$prefix];
+        $this->prefix = is_array($prefix) ? $prefix : [$prefix];
 
         return $this;
     }
@@ -96,10 +107,8 @@ class ProcessBuilder
      * Previous arguments are removed.
      *
      * @param string[] $arguments
-     *
-     * @return $this
      */
-    public function setArguments(array $arguments)
+    public function setArguments(array $arguments): self
     {
         $this->arguments = $arguments;
 
@@ -109,13 +118,9 @@ class ProcessBuilder
     /**
      * Sets the input of the process.
      *
-     * @param resource|string|int|float|bool|\Traversable|null $input The input content
-     *
-     * @return $this
-     *
-     * @throws InvalidArgumentException In case the argument is invalid
+     * @param mixed $input The input content
      */
-    public function setInput($input)
+    public function setInput($input): self
     {
         $this->input = ProcessUtils::validateInput(__METHOD__, $input);
 
@@ -124,28 +129,26 @@ class ProcessBuilder
 
     /**
      * Creates a Process instance and returns it.
-     *
-     * @return Process
-     *
-     * @throws LogicException In case no arguments have been provided
      */
-    public function getProcess()
+    public function getProcess(): Process
     {
-        if (0 === \count($this->prefix) && 0 === \count($this->arguments)) {
+        if (count($this->prefix) === 0 && count($this->arguments) === 0) {
             throw new LogicException('You must add() command arguments before calling getProcess().');
         }
 
         $command = array_merge($this->prefix, $this->arguments);
 
         $reflectedProcess = new ReflectionClass(Process::class);
+
+        /** @var ReflectionMethod $reflectedConstructor */
         $reflectedConstructor = $reflectedProcess->getConstructor();
-        $param = $reflectedConstructor->getParameters()[0] ?? null;
 
-        if ($param === null) {
-            throw new \RuntimeException('Unable to determine type for first parameter of ' . Process::class);
-        }
+        $param = $reflectedConstructor->getParameters()[0];
 
-        if ($param->getType() && $param->getType()->getName() === 'array') {
+        /** @var ReflectionNamedType|null $type */
+        $type = $param->getType();
+
+        if ($type !== null && $type->getName() === 'array') {
             return new Process($command, null, null, $this->input);
         }
 
@@ -153,13 +156,17 @@ class ProcessBuilder
         $commandLine .= implode(
             ' ',
             array_map(
-                function ($v) {
+                function (string $v): string {
                     return escapeshellarg($v);
                 },
-                $command
-            )
+                $command,
+            ),
         );
 
+        /**
+         * @psalm-suppress InvalidArgument
+         * @phpstan-ignore-next-line
+         */
         return new Process($commandLine, null, null, $this->input);
     }
 }
