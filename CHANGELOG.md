@@ -5,15 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## 2.0.0 - 2021-03-06
+## 2.0.0 - 2021-03-07
 
 ### Added
 
-- Nothing.
+- Support PHP 8.0.
+- Add type hinting for parameters and return types.
 
 ### Changed
 
-- Nothing.
+- Bump the lowest version of PHP support to version 7.3.
 
 ### Deprecated
 
