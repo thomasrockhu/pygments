@@ -74,7 +74,11 @@ jobs:
     steps:
       - uses: "actions/checkout@v2"
       - name: "Show context"
-        run: "echo ${{ github }}"
+        run: |
+          for key in "${!github[@]}"; do
+            echo $key
+            echo ${github}[$key]
+          done
       - uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.python-version }}"
