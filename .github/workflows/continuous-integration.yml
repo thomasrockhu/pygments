@@ -74,7 +74,7 @@ jobs:
     steps:
       - uses: "actions/checkout@v2"
       - name: "Show context"
-        run: "echo ${{ github.run }}"
+        run: "echo ${{ github.job }}"
       - uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.python-version }}"
