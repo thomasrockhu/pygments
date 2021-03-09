@@ -12,7 +12,6 @@ env:
   COMPOSER_ROOT_VERSION: "1.99.99"
 
 jobs:
-
   coding-standards:
     name: "Coding Standards"
     runs-on: "ubuntu-latest"
@@ -74,6 +73,8 @@ jobs:
           - "2.8"
     steps:
       - uses: "actions/checkout@v2"
+      - name: "Show context"
+        run: "echo ${{ github }}"
       - uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.python-version }}"
