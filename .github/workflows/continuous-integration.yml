@@ -75,11 +75,11 @@ jobs:
       - uses: "actions/checkout@v2"
       - name: "Show context"
         run: |
-          "echo ${{ github.job }}"
-          "echo ${{ github.action_path }}"
-          "echo ${{ job.name }}"
-          "echo ${{ job.container.id }}"
-          "echo ${{ steps.name }}"
+          echo ${{ github.job }}
+          echo ${{ github.action_path }}
+          echo ${{ job.name }}
+          echo ${{ job.container.id }}
+          echo ${{ steps.name }}
       - uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.python-version }}"
