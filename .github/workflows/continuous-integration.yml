@@ -12,7 +12,6 @@ env:
   COMPOSER_ROOT_VERSION: "1.99.99"
 
 jobs:
-
   coding-standards:
     name: "Coding Standards"
     runs-on: "ubuntu-latest"
@@ -50,30 +49,25 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.3"
-          - "7.4"
           - "8.0"
         composer-dependencies:
           - "lowest"
           - "highest"
         python-version:
-          - "3.6"
-          - "3.7"
           - "3.8"
           - "3.9"
         pygments-version:
-          - "1.6"
-          - "2.0"
-          - "2.1"
-          - "2.2"
-          - "2.3"
-          - "2.4"
-          - "2.5.2"
-          - "2.6"
           - "2.7.3"
           - "2.8"
     steps:
       - uses: "actions/checkout@v2"
+      - name: "Show context"
+        run: |
+          echo ${{ github.job }}
+          echo ${{ github.action_path }}
+          echo ${{ job.name }}
+          echo ${{ job.container.id }}
+          echo ${{ steps.name }}
       - uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.python-version }}"
